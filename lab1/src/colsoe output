@@ -1,0 +1,36 @@
+C:\Users\Dell\.jdks\openjdk-23.0.1\bin\java.exe "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2024.2.4\lib\idea_rt.jar=51223:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2024.2.4\bin" -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -classpath "F:\OneDrive\OneDrive - Everest Engineering College\7th sem\Image Processing and Pattern Recognization\labs\lab1\out\production\lab1" Main
+93,80,69,81,67,59,57,55,49,37,
+90,91,69,88,117,130,135,93,79,51,
+131,142,179,167,193,143,186,157,117,81,
+150,163,210,162,154,163,189,148,108,61,
+210,204,199,168,144,144,175,164,93,163,
+164,188,200,181,148,137,152,144,140,127,
+155,202,205,172,136,128,125,169,117,105,
+147,151,159,187,167,134,118,98,97,93,
+144,162,128,183,169,150,117,100,110,81,
+129,148,155,165,128,108,107,121,118,82,
+grayScaled intensity
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+binary of 128 threshold intensity
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+binary of mean threshold intensity
+
+Process finished with exit code 0
