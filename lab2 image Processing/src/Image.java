@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class Image {
     BufferedImage image;
@@ -129,77 +128,53 @@ public class Image {
         return A;
     }
 
-    int [][] binaryImagePixelsArray (int[][]inputArray , int thereshold){
-
-        //if the intensity is greater than  128 up it to 255 else downgrade it to 0
-
-        int [][] finalArray = new int[inputArray.length][inputArray[0].length];
-
-        for(int x = 0 ; x <inputArray.length ; x++){
-            for(int y = 0; y < inputArray[0].length ; y++){
-                if (inputArray[x][y] > thereshold){
-                    finalArray[x][y] =255;
-                }else{
-                    finalArray[x][y] = 0;
-                }
-            }
-        }
-        return finalArray;
-    }
-
-    public static int getMedian(int [][]array ){
-        // how we do is we flatten 1d array into 2d and sort the array
-        //then if odd number of elements are odd then value in length/2 is median
-        //if even we take out average of 2
-
-        int [] oneDArray = new int[array.length * array[0].length];
-        int index = 0;
-        for(int x =0 ; x< array.length ; x++){
-            for(int y = 0;y< array[0].length;y++){
-                oneDArray[index] = array[x][y];
-                index ++;
-            }
-        }
-
-        Arrays.sort(oneDArray);
-
-        System.out.println("tottal number of pixels " + oneDArray.length);
-        System.out.println("min max intensity"+oneDArray[0]+","+oneDArray[oneDArray.length-1]);
-
-        if(oneDArray.length % 2 == 0){//is even
-            int num1 = oneDArray[(oneDArray.length-1)/2];
-            int num2 = oneDArray[((oneDArray.length-1)/2)+1];
-            System.out.println("even median intensity"+num1+","+num2);
-            return (num1+num2)/2;
-        }
-        else {//is odd
-            System.out.println("odd median intensity"+oneDArray[oneDArray.length/2]);
-            return oneDArray[oneDArray.length/2];
-        }
-    }
-
-    public static int getMean(int [][]array){
-        //figure out the mean of the intensity  and use that as threshold of that intensity
-        int sumOfIntensity = 0;
-        for(int x = 0 ; x <array.length ; x++){
-            for(int y = 0; y < array[0].length ; y++){
-                sumOfIntensity = sumOfIntensity + array[x][y];
-            }
-        }
-       return  sumOfIntensity/(array.length *array[0].length);
-    }
-
     int[][] logTransformArray (int[][] inputArray, int scale){
         int [][]finalArray = new int[inputArray.length][inputArray[0].length];
+        int max = 255;
         for(int x = 0 ; x <inputArray.length ; x++){
             for(int y = 0; y < inputArray[0].length ; y++){
 
-                finalArray[x][y] = scale * (int)Math.log(inputArray[x][y]);
+                finalArray[x][y] = scale * (int) ( max * Math.log(1+inputArray[x][y])/Math.log(1+max));
             }
         }
         return finalArray;
     }
+
+    int[][] histogramArray(int[][] grayImageArray){
+        double maxIntensity = 255;
+        int [][] finalArray = new int [grayImageArray.length][grayImageArray[0].length];
+        int[] transformedIntensity = new int [grayImageArray.length * grayImageArray[0].length];
+        int[]intensityCount = new int [grayImageArray.length * grayImageArray[0].length];
+        double[] probabilityCount = new double [grayImageArray.length * grayImageArray[0].length];
+
+        //counting the number of pixels that have certain intensity
+        for(int x =0 ; x< grayImageArray.length ; x++){
+            for (int y = 0; y< grayImageArray[0].length;y++){
+                intensityCount[grayImageArray[x][y]]++;
+            }
+        }
+
+        //calculating  probability
+        for(int x = 0; x< probabilityCount.length; x++){
+            probabilityCount[x]= (double) intensityCount[x]/(grayImageArray.length* grayImageArray[0].length);
+        }
+
+        //redefining intensity
+        double sumOfPrev =0;
+        for(int x = 0; x< transformedIntensity.length ; x++){
+            sumOfPrev = sumOfPrev + probabilityCount[x];
+            transformedIntensity[x]= (int)(maxIntensity * sumOfPrev);
+        }
+
+        for(int x =0 ; x< finalArray.length ; x++){
+            for (int y = 0; y< finalArray[0].length;y++){
+                finalArray[x][y] = transformedIntensity[grayImageArray[x][y]];
+            }
+        }
+        return finalArray;
+    }
+
 }
 
 
-//if f[][] then f.length is nuber of rows and f[0].length is number of columns
+//if f[][] then f.length is number of rows and f[0].length is number of columns
