@@ -128,6 +128,9 @@ public class Image {
         return A;
     }
 
+
+    //========================extra functions==============================
+
     int[][] logTransformArray (int[][] inputArray, int scale){
         int [][]finalArray = new int[inputArray.length][inputArray[0].length];
         int max = 255;
@@ -143,9 +146,9 @@ public class Image {
     int[][] histogramArray(int[][] grayImageArray){
         double maxIntensity = 255;
         int [][] finalArray = new int [grayImageArray.length][grayImageArray[0].length];
-        int[] transformedIntensity = new int [grayImageArray.length * grayImageArray[0].length];
-        int[]intensityCount = new int [grayImageArray.length * grayImageArray[0].length];
-        double[] probabilityCount = new double [grayImageArray.length * grayImageArray[0].length];
+        int[] transformedIntensity = new int [256];
+        int[]intensityCount = new int [256];
+        double[] probabilityCount = new double [256];
 
         //counting the number of pixels that have certain intensity
         for(int x =0 ; x< grayImageArray.length ; x++){
@@ -174,6 +177,145 @@ public class Image {
         return finalArray;
     }
 
+    //===================for laplacian transform ==========================
+    int[][] getLaplacianKernel(){
+        int[][] kernel = {{0,1,0},{1,-4,1},{0,1,0}};
+        return kernel;
+    }
+
+    int[][] convolutionKernel(int[][]kernel){
+        int[][] finalArray = new int [kernel.length][kernel[0].length];
+        for(int x =0 ;x< kernel.length ; x++ ){
+            for(int y=0; y<kernel[0].length;y++){
+                finalArray[x][y] = kernel[kernel.length -1 -x][kernel[0].length-1-y];
+            }
+        }
+        return finalArray;
+    }
+
+    int[][] getPadded2DSection(int[][]imageArray, int xCord, int yCord , int size){
+        int[][] finalArray = new int[size][size];
+
+        int x = xCord - (size/2);
+
+        for(int i=0;i<size;i++){
+            int y = yCord - (size/2);
+            for(int j=0; j<size;j++){
+                if(x<0 || y< 0 || x>=imageArray.length || y>= imageArray[0].length){
+                    finalArray[i][j]=0;
+                }else {
+                    finalArray[i][j] = imageArray[x][y];
+                }
+                y++;
+            }
+            x++;
+        }
+        return finalArray;
+    }
+
+    int  sumOfDotMatrix(int[][] sectionArray,int [][] kernel){
+        int sum =0;
+        for(int x=0;x<sectionArray.length;x++){
+            for(int y=0;y<sectionArray[0].length;y++){
+                sum = sum + (sectionArray[x][y]*kernel[x][y]);
+            }
+        }
+        return  sum;
+    }
+
+    public  int[][] correlationConvolutionTransform(int[][] imageArray,int[][]kernel){
+        int[][] unscaledArray = new int[imageArray.length][imageArray[0].length];
+        int[][] finalArray = new int[imageArray.length][imageArray[0].length];
+        int[][] sectionArray ;
+
+        for(int x=0; x< imageArray.length ; x++){
+            for(int y=0; y< imageArray[0].length;y++){
+              sectionArray = getPadded2DSection(imageArray,x,y, kernel.length);
+              unscaledArray[x][y]= sumOfDotMatrix(sectionArray,kernel);
+            }
+        }
+
+        //to find max intensity
+        int maxIntensity = -999999999 ;
+        for(int x =0; x< unscaledArray.length;x++){
+            for(int y=0; y<unscaledArray[0].length;y++){
+                if(maxIntensity<unscaledArray[x][y]){
+                    maxIntensity=unscaledArray[x][y];
+                }
+            }
+        }
+        //rescaling the intensity
+        for(int x =0; x< unscaledArray.length;x++){
+            for(int y=0; y<unscaledArray[0].length;y++){
+                finalArray[x][y] = 255 * (int)unscaledArray[x][y]/maxIntensity;
+            }
+        }
+        return finalArray;
+    }
+
+    //=====================for averaging and bluing image===============
+
+    double[][] getAverageKernel(){
+        double[][] kernel = new double[3][3];
+        for(int x =0 ;x<3;x++){
+            for(int y=0;y<3;y++){
+                kernel[x][y]= (double) 1/9;
+            }
+        }
+        return kernel;
+    }
+
+    int  sumOfDotMatrixForAverage(int[][] sectionArray,double [][] kernel){
+        double sum =0;
+        for(int x=0;x<sectionArray.length;x++){
+            for(int y=0;y<sectionArray[0].length;y++){
+                sum = sum + (sectionArray[x][y]*kernel[x][y]);
+            }
+        }
+        return (int) sum ;
+    }
+
+    public  int[][] averageTransform(int[][] imageArray,double[][]kernel){
+        int[][] unscaledArray = new int[imageArray.length][imageArray[0].length];
+        int[][] finalArray = new int[imageArray.length][imageArray[0].length];
+        int[][] sectionArray ;
+
+        for(int x=0; x< imageArray.length ; x++){
+            for(int y=0; y< imageArray[0].length;y++){
+                sectionArray = getPadded2DSection(imageArray,x,y, kernel.length);
+                unscaledArray[x][y]= sumOfDotMatrixForAverage(sectionArray,kernel);
+            }
+        }
+
+        //to find max intensity
+        int maxIntensity = -999999999 ;
+        for(int x =0; x< unscaledArray.length;x++){
+            for(int y=0; y<unscaledArray[0].length;y++){
+                if(maxIntensity<unscaledArray[x][y]){
+                    maxIntensity=unscaledArray[x][y];
+                }
+            }
+        }
+        //rescaling the intensity
+        for(int x =0; x< unscaledArray.length;x++){
+            for(int y=0; y<unscaledArray[0].length;y++){
+                finalArray[x][y] = 255 * (int)unscaledArray[x][y]/maxIntensity;
+            }
+        }
+        return finalArray;
+    }
+
+    public  int[][] imageLaplacianEnhancement(int[][]grayImageArray, int[][]correlationArray){
+
+        int [][] finalArray = new int [grayImageArray.length][grayImageArray[0].length];
+
+        for(int x =0; x< grayImageArray.length ; x++){
+            for(int y=0 ; y< grayImageArray[0].length;y++){
+                finalArray[x][y] = (grayImageArray[x][y]+correlationArray[x][y]);
+            }
+        }
+        return  finalArray;
+    }
 }
 
 
