@@ -129,15 +129,15 @@ public class Image {
         return A;
     }
 
-    int [][] binaryImagePixelsArray (int[][]inputArray , int thereshold){
+    int [][] binaryImagePixelsArray (int[][]inputArray , int threshold){
 
-        //if the intensity is greater than  128 up it to 255 else downgrade it to 0
+        //if the intensity is greater than  threshold up it to 255 else downgrade it to 0
 
         int [][] finalArray = new int[inputArray.length][inputArray[0].length];
 
         for(int x = 0 ; x <inputArray.length ; x++){
             for(int y = 0; y < inputArray[0].length ; y++){
-                if (inputArray[x][y] > thereshold){
+                if (inputArray[x][y] > threshold){
                     finalArray[x][y] =255;
                 }else{
                     finalArray[x][y] = 0;
@@ -163,7 +163,7 @@ public class Image {
 
         Arrays.sort(oneDArray);
 
-        System.out.println("tottal number of pixels " + oneDArray.length);
+        System.out.println("total number of pixels " + oneDArray.length);
         System.out.println("min max intensity"+oneDArray[0]+","+oneDArray[oneDArray.length-1]);
 
         if(oneDArray.length % 2 == 0){//is even
