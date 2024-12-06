@@ -28,7 +28,8 @@ public class Main {
 
         System.out.println("Laplacian complete ");
 
-        int[][]enhancedImage =img.imageLaplacianEnhancement(grayImageArray,correlationArray);
+        int enhancementConstantScaling = img.getEnhancementConstantScaling(kernel);
+        int[][]enhancedImage =img.imageLaplacianEnhancement(grayImageArray,correlationArray,enhancementConstantScaling);
         Image.display(enhancedImage,"enhanced image");
         Image.saveToFile(enhancedImage,"5 enhanced image","jpg");
 
@@ -40,6 +41,18 @@ public class Main {
         Image.saveToFile(blurArray,"6 blurring image","jpg");
 
         System.out.println("Image blurring complete ");
+
+
+        int[][] horizontalKernel = img.getHorizontalKernel();
+        int[][] verticalKernel = img.getVerticalKernel();
+        int[][] magnitudeOfSobelOperator = img.getMagnitudeOfSobelOperator(grayImageArray,horizontalKernel,
+                verticalKernel);
+        int median  = Image.getMedian(magnitudeOfSobelOperator);
+        int[][] binaryImageMedian = img.binaryImagePixelsArray(magnitudeOfSobelOperator,median);
+        Image.display(binaryImageMedian," image gradient using Sobel masks");
+        Image.saveToFile(binaryImageMedian,"7 image gradient using Sobel masks","jpg");
+
+
 
 
     }
