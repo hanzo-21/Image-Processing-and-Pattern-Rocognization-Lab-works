@@ -320,3 +320,4 @@ public class Image {
 
 
 //if f[][] then f.length is number of rows and f[0].length is number of columns
+//255 is white 0 is black
