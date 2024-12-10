@@ -178,14 +178,37 @@ public class Image {
         return finalArray;
     }
 
-    //===================for laplacian transform ==========================
-    int[][] getLaplacianKernel(){
-        return new int[][]{
-                {0,1,0},
-                {1,-4,1},
-                {0,1,0}};
+    int[][] rescaleImageArray(int[][]unscaledArray){
+
+        int[][] finalArray = new int[unscaledArray.length][unscaledArray[0].length];
+        //to find max and min intensity
+        int maxIntensity = -999999999 ;
+        int minIntensity =  999999999;
+        for(int x =0; x< unscaledArray.length;x++){
+            for(int y=0; y<unscaledArray[0].length;y++){
+                if(maxIntensity<unscaledArray[x][y]){
+                    maxIntensity=unscaledArray[x][y];
+                }
+                if(minIntensity>unscaledArray[x][y]){
+                    minIntensity = unscaledArray[x][y];
+                }
+            }
+        }
+        //rescaling the intensity
+        for(int x =0; x< unscaledArray.length;x++){
+            for(int y=0; y<unscaledArray[0].length;y++){
+                finalArray[x][y] = 255 * (unscaledArray[x][y] - minIntensity)/(maxIntensity-minIntensity);
+            }
+        }
+        return finalArray;
     }
 
+    int[][] getLaplacianKernel(){
+        return new int[][]{
+                {-1,-1,-1},
+                {-1,8,-1},
+                {-1,-1,-1}};
+    }
 
     int[][] getPadded2DSection(int[][]imageArray, int xCord, int yCord , int sizeOfKernel){
         int[][] finalArray = new int[sizeOfKernel][sizeOfKernel];
@@ -219,7 +242,6 @@ public class Image {
 
     public  int[][] correlationConvolutionTransform(int[][] imageArray,int[][]kernel){
         int[][] unscaledArray = new int[imageArray.length][imageArray[0].length];
-        int[][] finalArray = new int[imageArray.length][imageArray[0].length];
         int[][] sectionArray ;
 
         for(int x=0; x< imageArray.length ; x++){
@@ -229,39 +251,14 @@ public class Image {
             }
         }
 
-        //to find max and min intensity
-        int maxIntensity = -999999999 ;
-        int minIntensity =  999999999;
-        for(int x =0; x< unscaledArray.length;x++){
-            for(int y=0; y<unscaledArray[0].length;y++){
-                if(maxIntensity<unscaledArray[x][y]){
-                    maxIntensity=unscaledArray[x][y];
-                }
-                if(minIntensity>unscaledArray[x][y]){
-                    minIntensity = unscaledArray[x][y];
-                }
-            }
-        }
-        //rescaling the intensity
-        for(int x =0; x< unscaledArray.length;x++){
-            for(int y=0; y<unscaledArray[0].length;y++){
-                finalArray[x][y] = 255 * (unscaledArray[x][y] - minIntensity)/(maxIntensity-minIntensity);
-            }
-        }
-
-        return finalArray;
+        return rescaleImageArray(unscaledArray);
     }
 
-    //=====================for enhancement ===============
-
-
     public  int[][] imageLaplacianEnhancement(int[][]grayImageArray, int[][]correlationArray,int[][] kernel){
-
         /*
         The value of image Laplacian is higher where there is sharp transition in intensity, i.e. where the image is more detailed.
          Thus, addition of the Laplacian to the original image enhances the details in an image.
          */
-        int [][] finalArray = new int [grayImageArray.length][grayImageArray[0].length];
         int [][] unscaledArray = new int [grayImageArray.length][grayImageArray[0].length];
 
         int centerRow = (kernel.length /2);
@@ -280,27 +277,7 @@ public class Image {
             }
         }
 
-        //to find max and min intensity
-        int maxIntensity = -999999999 ;
-        int minIntensity =  999999999;
-        for(int x =0; x< unscaledArray.length;x++){
-            for(int y=0; y<unscaledArray[0].length;y++){
-                if(maxIntensity<unscaledArray[x][y]){
-                    maxIntensity=unscaledArray[x][y];
-                }
-                if(minIntensity>unscaledArray[x][y]){
-                    minIntensity = unscaledArray[x][y];
-                }
-            }
-        }
-        //rescaling the intensity
-        for(int x =0; x< unscaledArray.length;x++){
-            for(int y=0; y<unscaledArray[0].length;y++){
-                finalArray[x][y] = 255 * (unscaledArray[x][y] - minIntensity)/(maxIntensity-minIntensity);
-            }
-        }
-
-        return  finalArray;
+        return   rescaleImageArray(unscaledArray);
     }
 
 
@@ -328,7 +305,6 @@ public class Image {
 
     public  int[][] averageTransform(int[][] imageArray,double[][]kernel){
         int[][] unscaledArray = new int[imageArray.length][imageArray[0].length];
-        int[][] finalArray = new int[imageArray.length][imageArray[0].length];
         int[][] sectionArray ;
 
         for(int x=0; x< imageArray.length ; x++){
@@ -338,28 +314,7 @@ public class Image {
             }
         }
 
-
-        //to find max and min intensity
-        int maxIntensity = -999999999 ;
-        int minIntensity =  999999999;
-        for(int x =0; x< unscaledArray.length;x++){
-            for(int y=0; y<unscaledArray[0].length;y++){
-                if(maxIntensity<unscaledArray[x][y]){
-                    maxIntensity=unscaledArray[x][y];
-                }
-                if(minIntensity>unscaledArray[x][y]){
-                    minIntensity = unscaledArray[x][y];
-                }
-            }
-        }
-        //rescaling the intensity
-        for(int x =0; x< unscaledArray.length;x++){
-            for(int y=0; y<unscaledArray[0].length;y++){
-                finalArray[x][y] = 255 * (unscaledArray[x][y] - minIntensity)/(maxIntensity-minIntensity);
-            }
-        }
-
-        return finalArray;
+        return rescaleImageArray(unscaledArray);
     }
 
     //===================== image gradient using Sobel’s masks===============
@@ -369,6 +324,7 @@ public class Image {
                 {0,0,0},
                 {1,2,1}};
     }
+
     public int[][] getHorizontalKernel(){
         return new int[][]{
                 {-1,0,1},
@@ -376,9 +332,8 @@ public class Image {
                 {-1,0,1}};
     }
 
-    public int[][] getMagnitudeOfSobelOperator(int[][] grayImageArray,int[][]horizontalKernel,          int[][] verticalKernel){
+    public int[][] getMagnitudeOfSobelOperator(int[][] grayImageArray,int[][]horizontalKernel, int[][] verticalKernel){
 
-        int [][] finalArray = new int[grayImageArray.length][grayImageArray[0].length];
         int [][] unscaledArray = new int[grayImageArray.length][grayImageArray[0].length];
         int[][] sectionArray;
         int magnitudeX , magnitudeY;
@@ -391,27 +346,10 @@ public class Image {
             }
         }
 
-        //to find max intensity
-        int maxIntensity = -999999999 ;
-        for(int x =0; x< unscaledArray.length;x++){
-            for(int y=0; y<unscaledArray[0].length;y++){
-                if(maxIntensity<unscaledArray[x][y]){
-                    maxIntensity=unscaledArray[x][y];
-                }
-            }
-        }
-        //rescaling the intensity
-        for(int x =0; x< unscaledArray.length;x++){
-            for(int y=0; y<unscaledArray[0].length;y++){
-                finalArray[x][y] = 255 * unscaledArray[x][y]/maxIntensity;
-            }
-        }
-
-
-        return finalArray;
+        return rescaleImageArray(unscaledArray);
     }
 
-    public static int getMedian(int [][]array ){
+    public static int get93thPercentile(int [][]array ){
         // how we do is we flatten 1d array into 2d and sort the array
         //then if odd number of elements are odd then value in length/2 is median
         //if even we take out average of 2
@@ -427,19 +365,7 @@ public class Image {
 
         Arrays.sort(oneDArray);
 
-        /*
-        if(oneDArray.length % 2 == 0){//is even
-            int num1 = oneDArray[(oneDArray.length-1)/2];
-            int num2 = oneDArray[((oneDArray.length-1)/2)+1];
-            return (num1+num2)/2;
-        }
-        else {//is odd
-            return oneDArray[oneDArray.length/2];
-        }
-
-         */
-
-        return oneDArray[oneDArray.length *90/100];
+        return oneDArray[oneDArray.length *93/100];
     }
 
     int [][] binaryImagePixelsArray (int[][]inputArray , int threshold){
@@ -461,7 +387,6 @@ public class Image {
     }
 
 }
-
 
 //if f[][] then f.length is number of rows and f[0].length is number of columns
 //255 is white 0 is black

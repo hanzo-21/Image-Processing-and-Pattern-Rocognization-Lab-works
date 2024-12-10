@@ -477,7 +477,7 @@ public class Main {
         int[][] verticalKernel = img.getVerticalKernel();
         int[][] magnitudeOfSobelOperator = img.getMagnitudeOfSobelOperator(grayImageArray,horizontalKernel,
                 verticalKernel);
-        int median  = Image.getMedian(magnitudeOfSobelOperator);
+        int median  = get90thPercentile(magnitudeOfSobelOperator);
         int[][] binaryImageMedian = img.binaryImagePixelsArray(magnitudeOfSobelOperator,median);
         Image.display(binaryImageMedian," image gradient using Sobel masks");
         Image.saveToFile(binaryImageMedian,"7 image gradient using Sobel masks","jpg");
