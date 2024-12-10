@@ -1,12 +1,15 @@
 public class Main {
     public static void main(String[] args) {
 
-        Image img = new Image("D:\\drive\\OneDrive - Everest Engineering College\\7th sem\\Image Processing and Pattern Recognization\\labs\\lab2 image Processing\\062.png" );
+        Image img = new Image("D:\\drive\\OneDrive - Everest Engineering College\\7th sem\\Image Processing and " +
+                "Pattern " +
+                "Recognization\\labs\\lab2 image Processing\\10.jpg" );
         int[][] grayImageArray = img.getPixelsArray();
         Image.display(grayImageArray,"Original");
         Image.saveToFile(grayImageArray,"1 grayScaled","jpg");
 
         System.out.println("Grey scaling complete ");
+        img.displayPixelsIntensity(grayImageArray);
 
         int[][] arrayLogTransform = img.logTransformArray(grayImageArray,1);
         Image.display(arrayLogTransform,"log transform image");
@@ -47,8 +50,18 @@ public class Main {
         int[][] verticalKernel = img.getVerticalKernel();
         int[][] magnitudeOfSobelOperator = img.getMagnitudeOfSobelOperator(grayImageArray,horizontalKernel,
                 verticalKernel);
+        System.out.println("solbes complete ");
+
+        img.displayPixelsIntensity(magnitudeOfSobelOperator);
         int median  = Image.getMedian(magnitudeOfSobelOperator);
+        System.out.println("median is " + median);
+
         int[][] binaryImageMedian = img.binaryImagePixelsArray(magnitudeOfSobelOperator,median);
+
+        System.out.println("binary image ");
+
+        img.displayPixelsIntensity(binaryImageMedian);
+
         Image.display(binaryImageMedian," image gradient using Sobel masks");
         Image.saveToFile(binaryImageMedian,"7 image gradient using Sobel masks","jpg");
 
