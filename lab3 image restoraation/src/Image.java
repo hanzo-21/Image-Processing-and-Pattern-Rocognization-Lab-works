@@ -4,6 +4,8 @@ import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Stack;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -86,6 +88,11 @@ public class Image {
 		Image img = new Image(f);
 		img.display(title);
 	}
+
+	public static void displayAndSaveJPG ( int[][] array , String title){
+		Image.saveToFile(array,title,"jpg");
+		Image.display(array,title);
+	}
 	
 	public static void display(double[][] f,String title){
 		//clip intensities to the range [0,255]
@@ -102,7 +109,7 @@ public class Image {
 		img.display(title);
 
 	}
-	
+
 	
 	int[][] getPixelArray(){
 		int[][] A = new int[image.getWidth()][image.getHeight()];
@@ -112,9 +119,73 @@ public class Image {
 				A[x][y] = (int) (c.getRed()+c.getGreen()+c.getBlue())/3;			}
 		return A;	
 	}
-		
 
-	public static void main(String[] args){
+	//*******************************************************************
+	//************** additional function for lab***********************
 
+	int[] getUnPaddedSection(int[][]imageArray, int xCord, int yCord , int sizeOfKernel){
+		Stack <Integer> stack = new Stack<>();
+
+		int x = xCord - (sizeOfKernel /2);
+		for(int i = 0; i< sizeOfKernel; i++){
+			int y = yCord - (sizeOfKernel /2);
+			for(int j = 0; j< sizeOfKernel; j++){
+				if(x<0 || y< 0 || x>=imageArray.length || y>= imageArray[0].length){
+					continue;
+				}else {
+					stack.push(imageArray[x][y]) ;
+				}
+				y++;
+			}
+			x++;
+		}
+		int[] finalArray = new int[stack.size()];
+
+		for(int k = 0; k<finalArray.length;k++){
+			finalArray[k]= stack.get(k);
+		}
+		return finalArray;
 	}
+
+	int getMean(int[] array){
+		if(array.length == 0){
+			return 0;
+		}
+		int sum = 0;
+        for (int i : array) {
+            sum = sum + i;
+        }
+		return sum /array.length;
+	}
+
+	int[][]restorationByMean(int[][]NoiseArray,int filterSize){
+		int[][]finalArray = new  int [NoiseArray.length][NoiseArray[0].length];
+
+		for(int x  =0 ; x<NoiseArray.length;x++){
+			for(int y =0 ; y< NoiseArray[0].length;y++){
+				int [] unPaddedSection = getUnPaddedSection(NoiseArray,x,y,filterSize);
+				finalArray[x][y] = getMean(unPaddedSection);
+			}
+		}
+		return  finalArray;
+	}
+
+	int getMedian (int[] array){
+		Arrays.sort(array);
+		return array[array.length/2];
+	}
+
+
+	int[][]restorationByMedian(int[][]NoiseArray,int filterSize){
+		int[][]finalArray = new  int [NoiseArray.length][NoiseArray[0].length];
+
+		for(int x  =0 ; x<NoiseArray.length;x++){
+			for(int y =0 ; y< NoiseArray[0].length;y++){
+				int [] unPaddedSection = getUnPaddedSection(NoiseArray,x,y,filterSize);
+				finalArray[x][y] = getMedian(unPaddedSection);
+			}
+		}
+		return  finalArray;
+	}
+
 }

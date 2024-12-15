@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ea538846-8f3f-49c3-8ca9-cd014a5c3a68" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/lab1/lab1.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2 image Processing/1 grayScaled.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/lab2 image Processing/1 grayScaled.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2 image Processing/2 log transform image.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/lab2 image Processing/2 log transform image.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2 image Processing/3 Histogram equalization image.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/lab2 image Processing/3 Histogram equalization image.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2 image Processing/4 correlation image.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/lab2 image Processing/4 correlation image.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2 image Processing/5 enhanced image.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/lab2 image Processing/5 enhanced image.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2 image Processing/6 blurring image.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/lab2 image Processing/6 blurring image.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2 image Processing/7 image gradient using Sobel masks.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/lab2 image Processing/7 image gradient using Sobel masks.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2 image Processing/lab2 image Processing.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2 image Processing/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab2 image Processing/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab3 image restoraation/lab3 image restoraation.iml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2q3ATlTPG4V5HLgYIoOP3RoDcHf" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ea538846-8f3f-49c3-8ca9-cd014a5c3a68" name="Changes" comment="" />
+      <created>1733880896201</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1733880896201</updated>
+    </task>
+    <servers />
+  </component>
+</project>

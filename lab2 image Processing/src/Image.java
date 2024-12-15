@@ -203,6 +203,8 @@ public class Image {
         return finalArray;
     }
 
+
+    //=====================for convolution===============
     int[][] getLaplacianKernel(){
         return new int[][]{
                 {-1,-1,-1},
@@ -241,6 +243,7 @@ public class Image {
     }
 
     public  int[][] correlationConvolutionTransform(int[][] imageArray,int[][]kernel){
+        writeFiles console =new writeFiles();
         int[][] unscaledArray = new int[imageArray.length][imageArray[0].length];
         int[][] sectionArray ;
 
@@ -248,8 +251,10 @@ public class Image {
             for(int y=0; y< imageArray[0].length;y++){
               sectionArray = getPadded2DSection(imageArray,x,y, kernel.length);
               unscaledArray[x][y]= sumOfDotMatrix(sectionArray,kernel);
+              console.writeConsole("padded esction "+x+","+y,sectionArray);
             }
         }
+        console.writeConsole("unscaeld array",unscaledArray);
 
         return rescaleImageArray(unscaledArray);
     }

@@ -6,11 +6,12 @@ public class Main {
         writeFiles console = new writeFiles();
         console.clearConsole();
 
-        Image img = new Image(sample.polywag);
+        Image img = new Image(sample.hundredByHundred);
         int[][] grayImageArray = img.getPixelsArray();
         Image.display(grayImageArray,"Original");
         Image.saveToFile(grayImageArray,"1 grayScaled","jpg");
 
+        console.writeConsole("gray scale",grayImageArray);
 
         int[][] arrayLogTransform = img.logTransformArray(grayImageArray,1);
         Image.display(arrayLogTransform,"log transform image");
