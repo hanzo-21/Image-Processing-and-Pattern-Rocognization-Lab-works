@@ -113,24 +113,32 @@ public class Image {
 	
 	int[][] getPixelArray(){
 		int[][] A = new int[image.getWidth()][image.getHeight()];
-		for(int x=0;x<image.getWidth();x++)
-			for(int y=0;y<image.getHeight();y++) {
+		for(int x=0;x<image.getWidth();x++) {
+			for (int y = 0; y < image.getHeight(); y++) {
 				Color c = new Color(image.getRGB(x, y));
-				A[x][y] = (int) (c.getRed()+c.getGreen()+c.getBlue())/3;			}
+				A[x][y] = (int) (c.getRed() + c.getGreen() + c.getBlue()) / 3;
+			}
+		}
+		System.out.println(Arrays.deepToString(A));
 		return A;	
 	}
 
 	//*******************************************************************
 	//************** additional function for lab***********************
 
+
+
 	int[] getUnPaddedSection(int[][]imageArray, int xCord, int yCord , int sizeOfKernel){
+		System.out.println("getting unpadded section");
 		Stack <Integer> stack = new Stack<>();
 
 		int x = xCord - (sizeOfKernel /2);
 		for(int i = 0; i< sizeOfKernel; i++){
 			int y = yCord - (sizeOfKernel /2);
 			for(int j = 0; j< sizeOfKernel; j++){
+				//console.writeConsole("checking for " + x+ ","+y);
 				if(x<0 || y< 0 || x>=imageArray.length || y>= imageArray[0].length){
+					y++;
 					continue;
 				}else {
 					stack.push(imageArray[x][y]) ;
@@ -139,6 +147,8 @@ public class Image {
 			}
 			x++;
 		}
+
+
 		int[] finalArray = new int[stack.size()];
 
 		for(int k = 0; k<finalArray.length;k++){
@@ -148,9 +158,7 @@ public class Image {
 	}
 
 	int getMean(int[] array){
-		if(array.length == 0){
-			return 0;
-		}
+		System.out.println("getting mean");
 		int sum = 0;
         for (int i : array) {
             sum = sum + i;
@@ -159,6 +167,7 @@ public class Image {
 	}
 
 	int[][]restorationByMean(int[][]NoiseArray,int filterSize){
+		System.out.println("mean restoration started");
 		int[][]finalArray = new  int [NoiseArray.length][NoiseArray[0].length];
 
 		for(int x  =0 ; x<NoiseArray.length;x++){
@@ -171,12 +180,14 @@ public class Image {
 	}
 
 	int getMedian (int[] array){
+		System.out.println("getting median");
 		Arrays.sort(array);
 		return array[array.length/2];
 	}
 
 
 	int[][]restorationByMedian(int[][]NoiseArray,int filterSize){
+		System.out.println("straing restoration by median");
 		int[][]finalArray = new  int [NoiseArray.length][NoiseArray[0].length];
 
 		for(int x  =0 ; x<NoiseArray.length;x++){

@@ -32,12 +32,16 @@ public class writeFiles {
     void writeConsole(String title ,int[][] array){
         String text = title.concat("\n\n") ;
 
+        System.out.println(array.length +","+array[0].length);
+
         for(int x =0 ; x<array.length;x++){
             for(int y =0; y<array[0].length;y++){
                 text = text.concat(Integer.toString(array[x][y] )+ ",\t");
             }
             text = text.concat("\n");
         }
+
+        System.out.println(text);
         try (FileWriter writer = new FileWriter("consoleOutput.txt", true)) {
             // 'true' enables appending
 
@@ -48,5 +52,40 @@ public class writeFiles {
         }
 
     }
+    void writeConsole(String title ,int[] array){
+        String text = title.concat("\n\n") ;
+
+        for(int x =0 ; x<array.length;x++){
+
+                text = text.concat(Integer.toString(array[x] )+ ",\t");
+
+        }
+        text = text.concat("\n");
+        try (FileWriter writer = new FileWriter("consoleOutput.txt", true)) {
+            // 'true' enables appending
+
+            writer.write(text);
+            System.out.println("console output was written");
+        } catch (IOException e) {
+            System.out.println("error has occurred");
+        }
+
+    }
+
+    void writeConsole(String title ){
+
+        title = title.concat("\n");
+
+        try (FileWriter writer = new FileWriter("consoleOutput.txt", true)) {
+            // 'true' enables appending
+
+            writer.write(title);
+            System.out.println("console output was written");
+        } catch (IOException e) {
+            System.out.println("error has occurred");
+        }
+
+    }
+
 
 }

@@ -5,25 +5,24 @@ public class imageSamples {
     String ronaldoNoise;
     String ronaldoDeLima;
     String ronaldoDeLimaNoise;
+    String hundredByHundred;
 
     imageSamples(){
-        messi = "D:\\drive\\OneDrive - Everest Engineering College\\7th sem\\Image Processing and Pattern " +
-                "Recognization\\labs\\lab3 image restoraation\\image\\messi.jpg";
+
+        hundredByHundred = "D:\\drive\\OneDrive - Everest Engineering College\\7th sem\\Image Processing and Pattern Recognization\\labs\\lab3 image restoraation\\image\\100.jpg";
+
+        messi = "D:\\drive\\OneDrive - Everest Engineering College\\7th sem\\Image Processing and Pattern Recognization\\labs\\lab3 image restoraation\\image\\messi.jpg";
 
         messiNoise = "D:\\drive\\OneDrive - Everest Engineering College\\7th sem\\Image Processing and Pattern " +
                 "Recognization\\labs\\lab3 image restoraation\\image\\messi_N.jpg";
 
-        ronaldo = "D:\\drive\\OneDrive - Everest Engineering College\\7th sem\\Image Processing and Pattern " +
-                "Recognization\\labs\\lab3 image restoraation\\image\\ronaldo.jpg";
+        ronaldo = "D:\\drive\\OneDrive - Everest Engineering College\\7th sem\\Image Processing and Pattern Recognization\\labs\\lab3 image restoraation\\image\\ronaldo.jpg";
 
-        ronaldoNoise = "D:\\drive\\OneDrive - Everest Engineering College\\7th sem\\Image Processing and Pattern " +
-                "Recognization\\labs\\lab3 image restoraation\\image\\ronaldo_N.jpg";
+        ronaldoNoise = "D:\\drive\\OneDrive - Everest Engineering College\\7th sem\\Image Processing and Pattern Recognization\\labs\\lab3 image restoraation\\image\\ronaldo_N.jpg";
 
-        ronaldoDeLima = "D:\\drive\\OneDrive - Everest Engineering College\\7th sem\\Image Processing and Pattern " +
-                "Recognization\\labs\\lab3 image restoraation\\image\\ronaldo_de_lima.jpg";
+        ronaldoDeLima = "D:\\drive\\OneDrive - Everest Engineering College\\7th sem\\Image Processing and Pattern Recognization\\labs\\lab3 image restoraation\\image\\ronaldo_de_lima.jpg";
 
-        ronaldoDeLimaNoise = "D:\\drive\\OneDrive - Everest Engineering College\\7th sem\\Image Processing and " +
-                "Pattern Recognization\\labs\\lab3 image restoraation\\image\\ronaldo_de_lima_N.jpg";
+        ronaldoDeLimaNoise = "D:\\drive\\OneDrive - Everest Engineering College\\7th sem\\Image Processing and Pattern Recognization\\labs\\lab3 image restoraation\\image\\ronaldo_de_lima_N.jpg";
     }
 
 
