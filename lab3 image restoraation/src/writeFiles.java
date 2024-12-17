@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class writeFiles {
     File file = new File("consoleOutput.txt");
@@ -29,17 +30,11 @@ public class writeFiles {
         }
     }
 
+
     void writeConsole(String title ,int[][] array){
         String text = title.concat("\n\n") ;
-
-        System.out.println(array.length +","+array[0].length);
-
-        for(int x =0 ; x<array.length;x++){
-            for(int y =0; y<array[0].length;y++){
-                text = text.concat(Integer.toString(array[x][y] )+ ",\t");
-            }
-            text = text.concat("\n");
-        }
+        text = text.concat( Arrays.deepToString(array));
+        text = text.concat("\n\n");
 
         System.out.println(text);
         try (FileWriter writer = new FileWriter("consoleOutput.txt", true)) {
@@ -55,9 +50,9 @@ public class writeFiles {
     void writeConsole(String title ,int[] array){
         String text = title.concat("\n\n") ;
 
-        for(int x =0 ; x<array.length;x++){
+        for (int i : array) {
 
-                text = text.concat(Integer.toString(array[x] )+ ",\t");
+            text = text.concat(Integer.toString(i) + ",\t");
 
         }
         text = text.concat("\n");
