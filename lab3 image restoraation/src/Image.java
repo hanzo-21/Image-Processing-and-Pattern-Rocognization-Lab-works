@@ -8,9 +8,7 @@ import java.util.Arrays;
 import java.util.Stack;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.*;
 
 
 public class Image {
@@ -194,6 +192,51 @@ public class Image {
 			}
 		}
 		return  finalArray;
+	}
+
+	double signalToNoiseRatio (int[][] filterArray , int[][] originalArray){
+		double signal = 0;
+		double noise = 0;
+		for(int x=0; x< filterArray.length;x++){
+			for( int y = 0 ; y<filterArray[0].length;y++){
+				signal = Math.pow(filterArray[x][y],2) + signal;
+				noise = Math.pow(filterArray[x][y] - originalArray[x][y],2) + noise;
+			}
+		}
+		return signal / noise;
+	}
+
+	public static void displaySNRTable(String[][]SNR_0_mean_1_median,String[][] imageNames){
+		String[] columnDataTitle = {"SNR from mean correction","SNR form median correction"};
+		String[] columnIndexTitle = {"Image Name"};
+
+		JFrame frame=new JFrame("SNR of different images correction from mean and median");
+		frame.setLayout(new FlowLayout());
+		frame.setSize(400,100+150*SNR_0_mean_1_median.length);
+
+		JTable additionalRow = new JTable(imageNames,columnIndexTitle);
+		additionalRow.setBounds(0,0,50,100+150*SNR_0_mean_1_median[0].length);
+		JScrollPane sp = new JScrollPane(additionalRow);
+		frame.add(sp);
+
+		JTable table=  new JTable(SNR_0_mean_1_median, columnDataTitle);
+		table.setBounds(50,0,300,100+150*SNR_0_mean_1_median[0].length);
+		JScrollPane spd = new JScrollPane(table);
+		frame.add(spd);
+
+        frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+	}
+
+	public static String[][] convertIntoString( double[][] SNR_0_mean_1_median){
+		String[][] finalString = new String[SNR_0_mean_1_median.length][SNR_0_mean_1_median[0].length];
+		for(int x = 0; x<finalString.length;x++){
+			for (int y = 0 ; y<finalString[0].length;y++){
+				finalString[x][y] = Double.toString(SNR_0_mean_1_median[x][y]);
+			}
+		}
+		return finalString;
 	}
 
 }
